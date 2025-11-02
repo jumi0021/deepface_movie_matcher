@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>닮은 영화 속 캐릭터 찾기</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #ffffffff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+        }
+
+        .result-card {
+            width: 100%; 
+            max-width: 550px; 
+            background-color: #ffffff;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border-radius: 1rem;
+        }
+
+        .match-image-container {
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #dee2e6;
+        }
+        .match-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .user-image-thumb {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border: 4px solid #fff;
+            outline: 2px solid #0d6efd; /* Bootstrap Primary 색상 테두리 */
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .result-title {
+            color: #343a40; /* 다크 그레이 */
+        }
+
+        /* 폰트 크기 조정 */
+        .movie-title {
+            color: #0d6efd; 
+            font-size: 1.75rem; /* 약간 키움 */
+            font-weight: 700;
+        }
+
+        .character-name {
+            font-size: 2.25rem; /* 약간 키움 */
+            font-weight: 800;
+            color: #212529; 
+            line-height: 1.2;
+        }
+
+        .similarity-text {
+            color: #198754; 
+            font-weight: 700;
+            font-size: 1.2rem; /* 유사도 텍스트 강조 */
+        }
+    </style>
+</head>
+<body>
+    <div class="result-card p-4 p-md-5 mx-auto">
+        
+        {% if error %}
+            <div class="text-center p-4 alert alert-danger rounded-3 mb-4 border">
+                <p class="fw-bold fs-4 mb-2">검색 실패</p>
+                <p class="mb-3">{{ error }}</p>
+                <a href="/" class="alert-link text-decoration-underline">다른 사진으로 다시 시도</a>
+            </div>
+        
+        {% elif match_data %}
+            <h1 class="result-title text-center mb-2 fw-bolder fs-3">당신과 닮은 캐릭터는 바로</h1>
+            
+            <p class="text-center text-muted mb-4">업로드한 사진과 비교한 결과입니다.</p>
+
+            <div class="match-image-container rounded-3 shadow-sm mb-5">
+                <img src="/static/{{ match_data.match_image }}" alt="매칭된 영화 캐릭터" class="match-image rounded-3">
+            </div>
+
+            <div class="text-center mb-5">
+                
+                <div class="mb-4">
+                    <p class="fs-6 text-secondary mb-1">출연 영화</p>
+                    <p class="movie-title"> {{ match_data.movie }}</p>
+                </div>
+                
+                <div class="mb-4">
+                    <p class="fs-6 text-secondary mb-1">캐릭터 / 배우 이름</p>
+                    <p class="character-name">{{ match_data.character_actor }}</p>
+                </div>
+
+                <div class="pt-4 d-flex flex-column align-items-center justify-content-center gap-3">
+                    <img src="/static/{{ match_data.user_image }}" alt="업로드 사진" class="user-image-thumb rounded-circle shadow-sm">
+                    <div class="fs-5 text-muted">
+                        유사도: 
+                        <span class="similarity-text">{{ match_data.similarity }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <a href="/" class="btn btn-primary w-100 py-3 fw-bold">
+                새로운 사진으로 다시 찾기
+            </a>
+
+        {% else %}
+             <div class="text-center p-4 alert alert-warning rounded-3 mb-4 border">
+                <p class="fw-bold fs-4 mb-2">결과 없음</p>
+                <p class="mb-3">알 수 없는 이유로 결과 데이터를 받지 못했습니다.</p>
+                <a href="/" class="alert-link text-decoration-underline">메인 페이지로 돌아가기</a>
+            </div>
+        {% endif %}
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

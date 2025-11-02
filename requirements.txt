@@ -1,0 +1,7 @@
+flask
+deepface
+opencv-python
+pillow
+numpy
+tqdm
+werkzeug
