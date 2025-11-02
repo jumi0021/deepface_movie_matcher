@@ -1,6 +1,6 @@
 # DeepFace Movie Matcher
 
-** DeepFace Movie Matcher**는 DeepFace를 활용하여 사용자가 업로드한 얼굴 사진을 영화 속 캐릭터 이미지들과 비교해 **가장 닮은 캐릭터**를 찾아주는 Flask 웹 애플리케이션입니다.
+DeepFace Movie Matcher는 DeepFace를 활용하여 사용자가 업로드한 얼굴 사진을 영화 속 캐릭터 이미지들과 비교해 **가장 닮은 캐릭터**를 찾아주는 Flask 웹 애플리케이션입니다.
 
 ---
 
